@@ -84,22 +84,48 @@ const cartCount = document.getElementById('cart-count');
 let cartItemCount = 0;
 
 // Init product element array
-const productElement = [];
+const productElements = [];
 
 // loop over products and creat an element
 products.forEach((product) => {
+  const productElement = createProductElement(product);
+  productElements.push(productElement);
+  productsWrapper.appendChild(productElement);
+});
+
+// create products element
+function createProductElement(product) {
   const productElement = document.createElement('div');
 
   productElement.className = 'item space-y-2';
 
   productElement.innerHTML = `
         <div class="bg-gray-100 flex justify-center relative overflow-hidden group cursor-pointer border rounded-xl">
-          <img src="$" alt="" class="w-full h-full object-cover">
+          <img src="${product.url}" alt="${product.name}" class="w-full h-full object-cover">
           <button
             class="status bg-black text-white absolute bottom-0 left-0 right-0 text-center py-2 translate-y-full transition group-hover:translate-y-0">Add
             To Cart</button>
         </div>
-        <p class="text-xl">Playstation 5</p>
-        <strong>$210</strong>
+        <p class="text-xl">${product.name}</p>
+        <strong>$${product.price.toLocaleString()}</strong>
   `;
-});
+
+  productElement.querySelector('.status').addEventListener('click', updateCart);
+
+  return productElement;
+}
+
+// add or remove item from cart
+function updateCart(e) {
+  const statusEl = e.target;
+
+  if (statusEl.classList.contions('added')) {
+    // remove from cart
+  } else {
+    // Add to cart
+    statusEl.classList.add('added');
+    statusEl.innerText = 'Remove From Cart';
+    statusEl.classList.remove('bg-gray-800');
+    statusEl.classList.add('bg-red-600');
+  }
+}
