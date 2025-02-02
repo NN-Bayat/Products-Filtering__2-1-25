@@ -1,73 +1,73 @@
 const products = [
   {
     name: 'Sony Playstation 5',
-    url: 'https://i.ibb.co/zHmZnWx/playstation-5.png',
+    url: 'image/playstation_5.png',
     category: 'games',
     price: 499.99,
   },
   {
     name: 'Samsung Galaxy',
-    url: 'https://i.ibb.co/rFFMDH7/samsung-galaxy.png',
+    url: 'image/samsung_galaxy.png',
     category: 'smartphones',
     price: 399.99,
   },
   {
     name: 'Cannon EOS Camera',
-    url: 'https://i.ibb.co/mhm1hLq/cannon-eos-camera.png',
+    url: 'image/cannon_eos_camera.png',
     category: 'cameras',
     price: 749.99,
   },
   {
     name: 'Sony A7 Camera',
-    url: 'https://i.ibb.co/LS9TDLN/sony-a7-camera.png',
+    url: 'image/sony_a7_camera.png',
     category: 'cameras',
     price: 1999.99,
   },
   {
     name: 'LG TV',
-    url: 'https://i.ibb.co/QHgFnHk/lg-tv.png',
+    url: 'image/lg_tv.png',
     category: 'televisions',
     price: 799.99,
   },
   {
     name: 'Nintendo Switch',
-    url: 'https://i.ibb.co/L0L9SdG/nintendo-switch.png',
+    url: 'image/nintendo_switch.png',
     category: 'games',
     price: 299.99,
   },
   {
     name: 'Xbox Series X',
-    url: 'https://i.ibb.co/C8rBVdT/xbox-series-x.png',
+    url: 'image/xbox_series_x.png',
     category: 'games',
     price: 499.99,
   },
   {
     name: 'Samsung TV',
-    url: 'https://i.ibb.co/Pj1nm4B/samsung-tv.png',
+    url: 'image/samsung_tv.png',
     category: 'televisions',
     price: 1099.99,
   },
   {
     name: 'Google Pixel',
-    url: 'https://i.ibb.co/5F58zmH/google-pixel.png',
+    url: 'image/google_pixel.png',
     category: 'smartphones',
     price: 499.99,
   },
   {
     name: 'Sony ZV1F Camera',
-    url: 'https://i.ibb.co/5Wy3RZ9/sony-zv1f-camera.png',
+    url: 'image/sony_zv1f_camera.png',
     category: 'cameras',
     price: 799.99,
   },
   {
     name: 'Toshiba TV',
-    url: 'https://i.ibb.co/FxM6rXq/toshiba-tv.png',
+    url: 'image/toshiba_tv.png',
     category: 'televisions',
     price: 499.99,
   },
   {
     name: 'iPhone 14',
-    url: 'https://i.ibb.co/5vc7J6s/iphone-14.png',
+    url: 'image/iphone_14.png',
     category: 'smartphones',
     price: 999.99,
   },
@@ -75,7 +75,7 @@ const products = [
 
 // Select DOM Elements
 const productsWrapper = document.getElementById('products-wrapper');
-const checkboxes = document.querySelectorAll('check');
+const checkboxes = document.querySelectorAll('.check');
 const filtersContainer = document.getElementById('filters-container');
 const searchInput = document.getElementById('search');
 const cartCount = document.getElementById('cart-count');
@@ -85,6 +85,10 @@ let cartItemCount = 0;
 
 // Init product element array
 const productElements = [];
+
+// Event listeners for filtering
+filtersContainer.addEventListener('change', filterProducts);
+searchInput.addEventListener('input', filterProducts);
 
 // loop over products and creat an element
 products.forEach((product) => {
@@ -119,13 +123,50 @@ function createProductElement(product) {
 function updateCart(e) {
   const statusEl = e.target;
 
-  if (statusEl.classList.contions('added')) {
+  if (statusEl.classList.contains('added')) {
     // remove from cart
+    statusEl.classList.remove('added');
+    statusEl.innerText = 'Add To Cart';
+    statusEl.classList.add('bg-gray-800');
+    statusEl.classList.remove('bg-red-600');
+
+    cartItemCount--;
   } else {
     // Add to cart
     statusEl.classList.add('added');
     statusEl.innerText = 'Remove From Cart';
     statusEl.classList.remove('bg-gray-800');
     statusEl.classList.add('bg-red-600');
+
+    cartItemCount++;
   }
+
+  // Update cart item count
+  cartCount.innerText = cartItemCount.toString();
+}
+
+// Filter products by checkboxes and search input
+function filterProducts() {
+  // Get search item
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  // Get checked categories
+  const checkedCategories = Array.from(checkboxes)
+    .filter((check) => check.checked)
+    .map((check) => check.id);
+
+  // loop over products and check for matches
+  productElements.forEach((productElement, index) => {
+    const product = products[index];
+
+    // check if product matches the search or checked categoreis
+    const matchesSearchTerm = product.name.toLowerCase().includes(searchTerm);
+    const isInCheckedCatagory = checkedCategories.length === 0 || checkedCategories.includes(product.category);
+
+    // Show or hide product based on matches
+    if (matchesSearchTerm && isInCheckedCatagory) {
+      productElement.classList.remove("hidden");
+    } else {
+      productElement.classList.add('hidden')
+    }
+  });
 }
