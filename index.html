@@ -9,13 +9,13 @@
 </head>
 
 <body class="bg-gray-800 text-white">
-  <nav class="bg-gray-900 p-4 mb-6">
-    <div class="container max-w-6xl mx-auto flex flex-col sm:flex-row gap-8 items-center">
+  <nav class="bg-gray-900 p-4 mb-6 fixed top-0 left-0 right-0 z-10">
+    <div class="container max-w-6xl mx-auto flex flex-row gap-4 items-center">
       <!-- Search Area -->
       <div class="relative w-full">
         <input type="text" id="search" class="bg-gray-700 rounded-full p-2 pl-10 focus:w-full"
           placeholder="Search Products...">
-        <svg class="absolute left-2 top-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
           stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -25,7 +25,7 @@
       </div>
 
       <!-- Cart Icon -->
-      <div class="relative text-center">
+      <div class="relative text-center cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" # height="24" viewBox="0 0 24 24" stroke-width="2"
           stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -39,11 +39,11 @@
     </div>
   </nav>
 
-  <main class="flex flex-col md:flex-row mx-auto container max-w-6xl">
-    <div class="space-y-4 p-2 w-full max-w-[10rem]">
+  <main class="flex flex-col md:flex-row mx-auto container max-w-6xl md:mt-24 mt-16">
+    <div class="-space-y-1 p-2 w-full max-w-[10rem] lg:fixed xlg:left-52">
       <h2 class="text-2xl">Filters</h2>
-      <h3 class="text-xl">Category</h3>
-      <div id="filters-container" class="text-xl space-y-2">
+      <h3 class="text-xl border-b-1 pb-1">Category</h3>
+      <div id="filters-container" class="text-xl space-y-2 mt-5">
         <div>
           <input type="checkbox" id="cameras" class="check">
           <label for="cameras">Cameras</label>
@@ -65,40 +65,7 @@
 
     <!-- Products Wrapper -->
     <div id="products-wrapper"
-      class="w-full max-w-4xl mx-auto grid grid-cols-2 gap-6 place-content-center p-4 sm:grid-cols-3 xl:grid-cols-4">
-      <div class="item space-y-2">
-        <div class="bg-gray-100 flex justify-center relative overflow-hidden group cursor-pointer border rounded-xl">
-          <img src="image/playstation_5.png" alt="" class="w-full h-full object-cover">
-          <button
-            class="status bg-black text-white absolute bottom-0 left-0 right-0 text-center py-2 translate-y-full transition group-hover:translate-y-0">Add
-            To Cart</button>
-        </div>
-        <p class="text-xl">Playstation 5</p>
-        <strong>$210</strong>
-      </div>
-
-      <div class="item space-y-2">
-        <div class="bg-gray-100 flex justify-center relative overflow-hidden group cursor-pointer border rounded-xl">
-          <img src="image/samsung_galaxy.png" alt="" class="w-full h-full object-cover">
-          <button
-            class="status bg-black text-white absolute bottom-0 left-0 right-0 text-center py-2 translate-y-full transition group-hover:translate-y-0">Add
-            To Cart</button>
-        </div>
-        <p class="text-xl">Samsung Galaxy</p>
-        <strong>$160</strong>
-      </div>
-
-      <div class="item space-y-2">
-        <div class="bg-gray-100 flex justify-center relative overflow-hidden group cursor-pointer border rounded-xl">
-          <img src="image/sony_a7_camera.png" alt="" class="w-full h-full object-cover">
-          <button
-            class="status bg-black text-white absolute bottom-0 left-0 right-0 text-center py-2 translate-y-full transition group-hover:translate-y-0">Add
-            To Cart</button>
-        </div>
-        <p class="text-xl">Sony A7</p>
-        <strong>$110</strong>
-      </div>
-
+      class="w-96 sm:w-full max-w-4xl lg:ms-52 mx-auto grid grid-cols-1 gap-6 place-content-center p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     </div>
   </main>
 
